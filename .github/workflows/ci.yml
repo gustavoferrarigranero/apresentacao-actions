@@ -17,6 +17,6 @@ jobs:
                 coverage: none
                 extensions: pdo_sqlite
 
-            - run: composer install --no-interaction --prefer-dist --no-progress
+            - run: composer update --no-interaction --prefer-dist --no-progress
 
             - run: php artisan about
