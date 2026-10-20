@@ -18,7 +18,7 @@ jobs:
           php-version: '8.3'
           coverage: none
           extensions: pdo_sqlite
-
+      - run: composer install --no-interaction --prefer-dist
       - run: php artisan about
 
           
