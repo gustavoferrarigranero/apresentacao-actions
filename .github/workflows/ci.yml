@@ -25,5 +25,11 @@ jobs:
 
       - run: php artisan test  
 
+      - run: vendor/bin/phpstan analyse app --memory-limit=1G
+
+      - run: vendor/bin/pint --test
+
+      - run: comoposer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+
           
       
