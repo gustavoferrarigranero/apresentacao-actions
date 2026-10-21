@@ -8,6 +8,18 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: test
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
+
+
     steps:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
@@ -15,19 +27,6 @@ jobs:
           php-version: "8.3"
           coverage: none
           extensions: pdo_mysql
-
-      - uses: samin/mysql-action@v1
-        with:
-          host port: 3800
-          container port: 3306
-          character set server: 'utf8'
-          collation server: 'utf8_general_ci'
-          mysql version: '8.4'
-          mysql database: 'test'
-          mysql root password: test
-          mysql user: test
-          mysql password: test
-
 
       - run: composer update --no-dev --no-interaction --prefer-dist --optimize-autoloader
       - run: cp .env.example .env && php artisan key:generate
@@ -37,7 +36,7 @@ jobs:
           mysql-version: "8.4"
       - run: mysql -uroot -e 'SELECT version()'
 
-      - run: php artisan test
-
+      - run: | 
+            php artisan test
 
 
