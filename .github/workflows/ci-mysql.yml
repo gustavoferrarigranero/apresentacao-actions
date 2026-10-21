@@ -1,4 +1,4 @@
-name: RunCIMysql
+name: 'RunCIMysql'
 
 on:
   pull_request:
@@ -29,11 +29,6 @@ jobs:
 
       - run: composer update --no-dev --no-interaction --prefer-dist --optimize-autoloader
       - run: cp .env.example .env && php artisan key:generate
-
-      - uses: shogo82148/actions-setup-mysql@v1
-        with:
-          mysql-version: "8.4"
-      - run: mysql -uroot -e 'SELECT version()'
 
       - run: | 
             php artisan test
