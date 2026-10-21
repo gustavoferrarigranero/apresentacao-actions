@@ -27,16 +27,18 @@ jobs:
           coverage: none
           extensions: pdo_mysql
 
-      - run: composer update --no-dev --no-interaction --prefer-dist --optimize-autoloader
+      - run: composer update --no-interaction --prefer-dist --optimize-autoloader
       - run: cp .env.example .env && php artisan key:generate
 
-      - run: php artisan test
+      - name: Executar Testes
         env:
           DB_CONNECTION: mysql
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
-          DB_USER: root
+          DB_USERNAME: root
           DB_PASSWORD: root
-          DB_NAME: app_testing
+          DB_DATABASE: app_testing
+        run: |
+            ./vendor/bin/phpunit
 
 
