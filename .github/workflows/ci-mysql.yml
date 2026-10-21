@@ -1,0 +1,30 @@
+name: RunCIMysql
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          coverage: none
+          extensions: pdo_mysql
+
+      - run: composer update --no-dev --no-interaction --prefer-dist --optimize-autoloader
+      - run: cp .env.example .env && php artisan key:generate
+
+      - uses: shogo82148/actions-setup-mysql@v1
+        with:
+          mysql-version: "8.4"
+      - run: mysql -uroot -e 'SELECT version()'
+
+      - run: php artisan test
+
+
+
