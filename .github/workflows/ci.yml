@@ -19,8 +19,14 @@ jobs:
 
             - run: composer update --no-interaction --prefer-dist --no-progress
 
+            - run: php artisan about
+
             - run: cp .env.example .env && php artisan key:generate
 
             - run: php artisan test
 
-            - run: php artisan about
+            - run: vendor/bin/phpstan analyse  app --memory-limity=1G
+
+            - run: vendor/bin/pint --test
+
+            - run: composer update --no-dev --no-interaction --prefer-dist --optimize-autoloader
