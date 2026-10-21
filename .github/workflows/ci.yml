@@ -17,6 +17,13 @@ jobs:
           extensions: pdo_sqlite
       - run: composer update --no-interaction --prefer-dist
       - run: php artisan about
+      - run: cp .env.example .env && php artisan key:generate
+      - run: php artisan test
+      - run: vendor/bin/phpstan analiyse --memory-limit=1G
+      - run: vendor/biin/pint --test
+      - run: composer install --o-dev --no-interaction --prefer-dist --optimmize-autoloader
+
+
 
 
 
