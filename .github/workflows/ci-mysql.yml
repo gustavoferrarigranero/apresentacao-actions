@@ -16,6 +16,19 @@ jobs:
           coverage: none
           extensions: pdo_mysql
 
+      - uses: samin/mysql-action@v1
+        with:
+          host port: 3800
+          container port: 3306
+          character set server: 'utf8'
+          collation server: 'utf8_general_ci'
+          mysql version: '8.4'
+          mysql database: 'test'
+          mysql root password: test
+          mysql user: test
+          mysql password: test
+
+
       - run: composer update --no-dev --no-interaction --prefer-dist --optimize-autoloader
       - run: cp .env.example .env && php artisan key:generate
 
