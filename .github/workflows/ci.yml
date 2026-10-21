@@ -19,7 +19,7 @@ jobs:
       - run: php artisan about
       - run: cp .env.example .env && php artisan key:generate
       - run: php artisan test
-      - run: vendor/bin/phpstan analiyse --memory-limit=1G
+      - run: vendor/bin/phpstan analyse --memory-limit=1G
       - run: vendor/biin/pint --test
       - run: composer install --o-dev --no-interaction --prefer-dist --optimmize-autoloader
 
